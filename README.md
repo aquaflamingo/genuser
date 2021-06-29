@@ -17,10 +17,6 @@ make build
 
 ```
 
-## Development
-
-TODO: Write development instructions here
-
 ## Data
 Wordlists taken from https://github.com/imsky/wordlists/
 
