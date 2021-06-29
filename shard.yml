@@ -1,0 +1,13 @@
+name: genuser
+version: 0.1.0
+
+authors:
+  - Robert <dev@robertsimoes.org>
+
+targets:
+  genuser:
+    main: src/genuser.cr
+
+crystal: 1.0.0
+
+license: MIT
