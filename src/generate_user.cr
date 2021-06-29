@@ -4,13 +4,20 @@ module GenerateUser
   VERSION = "0.1.0"
 
  class App
+		property count : String
+		property delimitter : String
+
 		def initialize(@conf = Hash(Symbol, String).new, @generator = Generator.new)
+			 @count = @conf[:n]
+			 @delimitter = @conf[:delimitter]
 		end
 
     def start
-			 results = @generator.gen(@conf[:n].to_i)
+			 results = @generator.gen(@count.to_i, @delimitter)
 
-			 results. each do |r|
+			 puts "Genearting #{@count} usernames"
+
+			 results.each do |r|
 					puts r
 			 end
     end

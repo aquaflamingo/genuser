@@ -3,9 +3,14 @@ require "./generate_user.cr"
 
 opts = Hash(Symbol, String).new 
 opts[:n] = "1"
+opts[:delimitter] = ""
 
 OptionParser.parse do |parser|
   parser.banner = "Welcome to CrystalBooks"
+
+	parser.on "-d", "--delimitter -", "Number to generate" do |d| 
+		 opts[:delimitter] = d
+	end
 
 	parser.on "-n", "--number count", "Number to generate" do |n| 
 		 opts[:n] = n
