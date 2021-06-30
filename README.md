@@ -13,8 +13,29 @@ make build
 
 ```bash
 
-./bin/genuser -n 10
+./bin/genuser --number 10 -delimitter _
 
+Generating 10 usernames
+bobcat_burgundy
+burgundy_bobcat
+dog_cream
+cream_dog
+sturgeon_coal
+coal_sturgeon
+chicken_charcoal
+charcoal_chicken
+rat_green
+green_rat
+leech_yellow
+yellow_leech
+arctic_fox_salmon
+salmon_arctic_fox
+lark_fuchsia
+fuchsia_lark
+vampire_squid_champagne
+champagne_vampire_squid
+panther_coral
+coral_panther
 ```
 
 ## Data

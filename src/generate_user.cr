@@ -15,7 +15,7 @@ module GenerateUser
     def start
 			 results = @generator.gen(@count.to_i, @delimitter)
 
-			 puts "Genearting #{@count} usernames"
+			 puts "Generating #{@count} usernames"
 
 			 results.each do |r|
 					puts r
