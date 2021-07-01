@@ -2,7 +2,7 @@ class ContentRegistry
   def self.build_from(paths : Hash(String, String), delimitter = "")
     registry = Hash(String, Array(String)).new
 
-    # Concurrently read fiels and populate registry
+    # Concurrently read fields and populate registry
     populate_content = ->(key : String, file : String) do
       spawn do
         File.each_line file, chomp: true do |l|
@@ -11,14 +11,14 @@ class ContentRegistry
       end
     end
 
-		# Read the file content into each key entry
+    # Read the file content into each key entry
     paths.each do |key, file_path|
       registry[key] = Array(String).new
 
       populate_content.call(key, file_path)
     end
 
-		# Wait for all content to populate
+    # Wait for all content to populate
     Fiber.yield
 
     new(registry)
