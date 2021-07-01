@@ -4,16 +4,25 @@ module GenerateUser
   VERSION = "0.1.0"
 
  class App
-		property count : String
-		property delimitter : String
+	 DATA_ANIMALS = "data/animals.txt"
+	 DATA_COLOURS = "data/colours.txt"
+		private property generator : Generator
+		private property count : String
 
-		def initialize(@conf = Hash(Symbol, String).new, @generator = Generator.new)
+		def initialize(@conf = Hash(Symbol, String).new)
+			
+			 files = { "animals" => DATA_ANIMALS, "colours" => DATA_COLOURS }
+
 			 @count = @conf[:n]
-			 @delimitter = @conf[:delimitter]
+
+			 @generator = Generator.new(files, use_delimitter: @conf[:delimitter])
 		end
 
     def start
-			 results = @generator.gen(@count.to_i, @delimitter)
+			 results = @generator.generate(
+					content: ["animals", "colours"], 
+					n: @count.to_i, 
+			 )
 
 			 puts "Generating #{@count} usernames"
 

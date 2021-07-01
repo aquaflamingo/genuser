@@ -1,47 +1,38 @@
+require "./content_registry.cr"
+
 class Generator
-  DATA_ANIMALS = "data/animals.txt"
-  DATA_COLOURS = "data/colours.txt"
+	 private property registry : ContentRegistry
 
-  def gen(n = 1, delimitter = "-")
-    content = Hash(String, Array(String)).new
+	 def initialize(file_paths : Hash(String, String) = Hash(String, String).new, use_delimitter = "")
 
-    content["colours"] = Array(String).new
-    content["animals"] = Array(String).new
+			@delimitter = use_delimitter
+			@registry = ContentRegistry.build_from(file_paths,  @delimitter)
+	 end
 
-    read_concurrent(DATA_COLOURS, "colours", content, delimitter)
-    read_concurrent(DATA_ANIMALS, "animals", content, delimitter)
+	 def generate(content : Array(String), n = 1)
+			content = content.uniq
 
-    # Wait for reading content
-    Fiber.yield
+			registries = content.map { |content_name| @registry.fetch(content_name) }
 
-    results = Array(Array(String)).new
+			results = Array(Array(String)).new
 
-    n.times do
-      results << permutate_with(content["animals"], content["colours"], delimitter)
-    end
+			n.times do
 
-    results.flatten
-  end
+				 results << permutate_with registries, @delimitter
+			end
 
-  def permutate_with(src1 : Array(String), src2 : Array(String), delimitter = "")
-    s1 = src1.sample
-    s2 = src2.sample
+			results.flatten
+	 end
 
-    res = [] of String
+	 def permutate_with(content_srcs : Array(Array(String)), delimitter = "")
+			sample_list = content_srcs.map {|src| src.sample}
 
-    [s1, s2].each_permutation do |p|
-      res << p.join(delimitter)
-    end
+			res = [] of String
 
-    return res
-  end
+			sample_list.each_permutation do |p|
+				 res << p.join(delimitter)
+			end
 
-  def read_concurrent(f : String, collection_key : String, content : Hash(String, Array(String)), delimitter : String)
-    # concurrently read each line of the file and append to the array
-    spawn do
-      File.each_line f, chomp: true do |l|
-        content[collection_key] << l.downcase.sub(" ", delimitter)
-      end
-    end
-  end
+			return res
+	 end
 end
