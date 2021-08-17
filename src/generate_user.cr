@@ -1,29 +1,28 @@
 require "./generator.cr"
+require "./config.cr"
 
 module GenerateUser
   VERSION = "0.1.0"
 
   class App
-    DATA_ANIMALS = "data/animals.txt"
-    DATA_COLOURS = "data/colours.txt"
     private property generator : Generator
-    private property count : String
 
-    def initialize(@conf = Hash(Symbol, String).new)
-      files = {"animals" => DATA_ANIMALS, "colours" => DATA_COLOURS}
+    def initialize(conf = Hash(Symbol, String).new)
+      @config = Config.build do |c|
+        c.count = conf[:n]
+        c.delimitter = conf[:delimitter]
+      end
 
-      @count = @conf[:n]
-
-      @generator = Generator.new(files, use_delimitter: @conf[:delimitter])
+      @generator = Generator.new(@config)
     end
 
     def start
       results = @generator.generate(
         content: ["animals", "colours"],
-        n: @count.to_i,
+        n: @config.count.to_i,
       )
 
-      puts "Generating #{@count} usernames"
+      puts "Generating #{@config.count} usernames"
 
       results.each do |r|
         puts r

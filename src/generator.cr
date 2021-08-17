@@ -1,15 +1,16 @@
 require "./content_registry.cr"
+require "./config.cr"
 
 # +Generator+ generates a desired number of usernames using the file content provided
 class Generator
   private property registry : ContentRegistry
 
-  def initialize(file_paths : Hash(String, String) = Hash(String, String).new, use_delimitter = "")
-    @delimitter = use_delimitter
-    @registry = ContentRegistry.build_from(file_paths, @delimitter)
+  def initialize(config : Config)
+    @delimitter = config.delimitter.as(String)
+    @registry = ContentRegistry.build_from(config.file_paths, @delimitter)
   end
 
-	# Generate *n* user names using sourcing from the *content*
+  # Generate *n* user names using sourcing from the *content*
   def generate(content : Array(String), n = 1)
     content = content.uniq
 
