@@ -11,6 +11,7 @@ module GenerateUser
       @config = Config.build do |c|
         c.count = conf[:n]
         c.delimitter = conf[:delimitter]
+        c.suffix = conf[:suffix]
       end
 
       @generator = Generator.new(@config)

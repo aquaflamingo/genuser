@@ -7,6 +7,7 @@ class Generator
 
   def initialize(config : Config)
     @delimitter = config.delimitter.as(String)
+    @suffix = config.suffix.as(String)
     @registry = ContentRegistry.build_from(config.file_paths, @delimitter)
   end
 
@@ -19,19 +20,19 @@ class Generator
     results = Array(Array(String)).new
 
     n.times do
-      results << permutate_with registries, @delimitter
+      results << permutate_with registries, @delimitter, @suffix
     end
 
     results.flatten
   end
 
-  def permutate_with(content_srcs : Array(Array(String)), delimitter = "")
+  def permutate_with(content_srcs : Array(Array(String)), delimitter = "", suffix="")
     sample_list = content_srcs.map { |src| src.sample }
 
     res = [] of String
 
     sample_list.each_permutation do |p|
-      res << p.join(delimitter)
+			 res << p.join(delimitter) + suffix
     end
 
     return res
