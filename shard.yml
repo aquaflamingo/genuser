@@ -2,7 +2,7 @@ name: genuser
 version: 0.1.0
 
 authors:
-  - Robert <dev@robertsimoes.org>
+  - Robert <16901597+aquaflamingo@users.noreply.github.com>
 
 targets:
   genuser:
