@@ -1,12 +1,13 @@
 # genuser
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-CLI Utility to generate memorable usernames
+CLI to generate memorable usernames
 
 ## Installation
 
 ```bash
 make install
+
 make build
 ```
 
@@ -42,3 +43,5 @@ coral_panther@mydomain.com
 ## Data
 Wordlists taken from https://github.com/imsky/wordlists/
 
+## License
+This repository is licensed under [MIT Open Source](https://opensource.org/licenses/MIT)
