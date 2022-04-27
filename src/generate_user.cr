@@ -1,9 +1,8 @@
 require "./generator.cr"
 require "./config.cr"
+require "./version.cr"
 
 module GenerateUser
-  VERSION = "0.1.0"
-
   class App
     private property generator : Generator
 
